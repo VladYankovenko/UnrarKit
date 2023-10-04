@@ -53,13 +53,6 @@
 
 - (NSDate *)parseDOSDate:(NSUInteger)dosTime
 {
-    URKCreateActivity("-parseDOSDate:");
-
-    if (dosTime == 0) {
-        URKLogDebug("DOS Time == 0");
-        return nil;
-    }
-    
     // MSDOS Date Format Parsing specified at this URL:
     // http://www.cocoanetics.com/2012/02/decompressing-files-into-memory/
     
@@ -71,6 +64,14 @@
     int second = (dosTime & 31) * 2;         // 5 bits
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
+
+    URKCreateActivity("-parseDOSDate:");
+
+    if (dosTime == 0) {
+        URKLogDebug("DOS Time == 0");
+        return nil;
+    }
+    
     components.year = year;
     components.month = month;
     components.day = day;
